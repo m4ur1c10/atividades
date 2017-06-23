@@ -1,4 +1,7 @@
 <?php 
+
+use App\Entity\User;
+
 // inclui o autoloader do Composer 
 require 'vendor/autoload.php'; 
 
@@ -10,11 +13,14 @@ $app = new \Slim\App([ 'settings' => [
         'displayErrorDetails' => true
     ]
 ]);
+
+$userResource = new \App\Resource\UserResource();
   
 // página inicial
 // listagem de usuários
-$app->get('/', function ()
-{
+$app->get('/', function($id = null) use ($userResource) {
+    echo $userResource->get($id);
+
     $UsersController = new \App\Controllers\UsersController;
     $UsersController->index();
 });
