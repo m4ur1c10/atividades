@@ -1,7 +1,5 @@
 <?php 
 
-use App\Entity\User;
-
 // inclui o autoloader do Composer 
 require 'vendor/autoload.php'; 
 
@@ -13,61 +11,36 @@ $app = new \Slim\App([ 'settings' => [
         'displayErrorDetails' => true
     ]
 ]);
-
-$userResource = new \App\Resource\UserResource();
   
-// página inicial
-// listagem de usuários
-$app->get('/', function($id = null) use ($userResource) {
-    echo $userResource->get($id);
+$app->get('/', function() {
 
-    $UsersController = new \App\Controllers\UsersController;
-    $UsersController->index();
+    $AtividadesController = new \App\Controllers\AtividadesController;
+    $AtividadesController->index();
 });
- 
- 
-// adição de usuário
-// exibe o formulário de cadastro
-$app->get('/add', function ()
-{
-    $UsersController = new \App\Controllers\UsersController;
-    $UsersController->create();
-});
- 
+  
 // processa o formulário de cadastro
 $app->post('/add', function ()
 {
-    $UsersController = new \App\Controllers\UsersController;
-    $UsersController->store();
+    $AtividadesController = new \App\Controllers\AtividadesController;
+    $AtividadesController->store();
 });
- 
- 
-// edição de usuário
-// exibe o formulário de edição
-$app->get('/edit/{id}', function ($request)
+
+$app->get('/troca_status/{id}', function ($request)
 {
     // pega o ID da URL
     $id = $request->getAttribute('id');
  
-    $UsersController = new \App\Controllers\UsersController;
-    $UsersController->edit($id);
-});
- 
-// processa o formulário de edição
-$app->post('/edit', function ()
-{
-    $UsersController = new \App\Controllers\UsersController;
-    $UsersController->update();
-});
- 
-// remove um usuário
+    $AtividadesController = new \App\Controllers\AtividadesController;
+    $AtividadesController->troca_status($id);
+}); 
+
 $app->get('/remove/{id}', function ($request)
 {
     // pega o ID da URL
     $id = $request->getAttribute('id');
  
-    $UsersController = new \App\Controllers\UsersController;
-    $UsersController->remove($id);
+    $AtividadesController = new \App\Controllers\AtividadesController;
+    $AtividadesController->remove($id);
 });
  
 $app->run();
