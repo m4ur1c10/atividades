@@ -61,7 +61,6 @@ class Atividade {
         } else {
             return $this->dataInicio = $data_inicio;
         }
-        echo $this->dataInicio; exit;
     }
 
     public function getDataFim() {
@@ -95,7 +94,7 @@ class Atividade {
                 3 => 'Em Teste',
                 4 => 'Concluído'
             );
-        return $status_arr[$this->status];
+        return isset($status_arr[$this->status]) ? $status_arr[$this->status] : 'Status Indisponível';
     }
 
     public function setStatus($status) {

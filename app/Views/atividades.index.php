@@ -105,12 +105,12 @@
         </div>
         <div class="form-group">
             <label for="dataInicio">Data Inicial: </label>     
-            <input type="text" class="form-control" name="data_inicio" id="dataInicio" placeholder="dd/mm/YYYY">
+            <input type="text" class="form-control date" name="data_inicio" id="dataInicio" placeholder="dd/mm/YYYY">
             <span class="help-block"></span>
         </div>
         <div class="form-group">
             <label for="dataFim">Data Final: </label>     
-            <input type="text" class="form-control" name="data_fim" id="dataFim" placeholder="dd/mm/YYYY">
+            <input type="text" class="form-control date" name="data_fim" id="dataFim" placeholder="dd/mm/YYYY">
             <span class="help-block"></span>
         </div>
 

@@ -32,10 +32,14 @@ class AtividadesController {
         $error = array();
         if (empty($atividade->getNome())) {
             $error['fields']['nome'] = 'Este campo é obrigatório.';
+        } elseif (strlen($atividade->getNome()) > 255) {
+        	$error['fields']['nome'] = 'O limite é de 255 caracteres.';
         }
 
         if (empty($atividade->getDescricao())) {
             $error['fields']['descricao'] = 'Este campo é obrigatório.';
+        } elseif (strlen($atividade->getNome()) > 600) {
+        	$error['fields']['descricao'] = 'O limite é de 600 caracteres.';
         }
 
         if (empty($atividade->getDataInicio())) {
@@ -67,8 +71,17 @@ class AtividadesController {
 
     public function troca_status($id)
     {
-        if (AtividadeDB::troca_status($id))
+    	$atividadeObj = new Atividade(array('id' => $id));
+        $atividade = AtividadeDB::selectAll($atividadeObj); 
+        $atividadeObj->setStatus($atividade[0]['status']);
+    	
+    	if (AtividadeDB::troca_status($atividadeObj))
         {
+        	echo $atividadeObj->getStatus();
+    		if ($atividadeObj->getStatus() == 3) {
+        		$atividadeObj->setDataFim(date('Y-m-d'));
+        		AtividadeDB::atualizaDataFinal($atividadeObj);
+        	}
             redirect();
             exit;
         }

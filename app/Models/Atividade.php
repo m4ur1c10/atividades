@@ -17,7 +17,8 @@ class Atividade {
  
         if (!empty($where))
         {
-            $stmt->bindParam(':id', $atividade->getId(), \PDO::PARAM_INT);
+            $id = $atividade->getId();
+            $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
         }
  
         $stmt->execute();
@@ -41,6 +42,27 @@ class Atividade {
         $stmt->bindParam(':descricao', $descricao);
         $stmt->bindParam(':data_inicio', $dataInicio);
         $stmt->bindParam(':data_fim', $dataFim);
+ 
+        if ($stmt->execute())
+        {
+            return true;
+        }
+        else
+        {
+            print_r($stmt->errorInfo());
+            return false;
+        }
+    }
+ 
+    public static function atualizaDataFinal($atividade)
+    {        
+        $id = $atividade->getId();
+        $dataFim = $atividade->getDataFim();
+        $DB = new DB;
+        $sql = "UPDATE atividades SET data_fim = :data_fim WHERE id = :id";
+        $stmt = $DB->prepare($sql);
+        $stmt->bindParam(':data_fim', $dataFim);
+        $stmt->bindParam(':id', $id);
  
         if ($stmt->execute())
         {
@@ -80,10 +102,10 @@ class Atividade {
         }
     }
  
-    public static function troca_status($id)
+    public static function troca_status($atividade)
     {
         // valida o ID
-        if (empty($id))
+        if (empty($atividade->getId()))
         {
             echo "ID não informado";
             exit;
@@ -93,6 +115,7 @@ class Atividade {
         $DB = new DB;
         $sql = "UPDATE atividades SET status = (status + 1) WHERE id = :id";
         $stmt = $DB->prepare($sql);
+        $id = $atividade->getId();
         $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
           
         if ($stmt->execute())

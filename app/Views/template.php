@@ -19,6 +19,7 @@
         </div>
         <script type="text/javascript" src="<?php echo base_url('vendor/components/jquery/jquery.min.js') ?>"></script>
         <script type="text/javascript" src="<?php echo base_url('vendor/twbs/bootstrap/dist/js/bootstrap.min.js') ?>"></script>
+        <script type="text/javascript" src="<?php echo base_url('vendor/igorescobar/jquery-mask-plugin/dist/jquery.mask.min.js') ?>"></script>
         <script type="text/javascript">
             $('#insertAtividade').submit(function(e){
                 e.preventDefault();
@@ -41,7 +42,8 @@
                         }
                     }
                 }, 'json');
-            })
+            });
+            $('.date').mask('00/00/0000');
         </script>
     </body>
 </html>
